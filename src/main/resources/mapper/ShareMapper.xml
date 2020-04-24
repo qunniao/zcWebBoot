@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhanchengwlkj.zcWebBoot.dao.ShareDao">
+
+    <!-- 目的：为dao接口方法提供sql语句配置 -->
+
+    <!-- 执行获取账号和数据源匹配登录 -->
+    <select id="findShareArticleListByAll" resultType="com.zhanchengwlkj.zcWebBoot.modal.ShareArticle">
+		SELECT
+			a.id,a.store_id,a.title,a.type_str,a.image,a.create_time,a.sort,s.store_name
+		FROM
+			zc_share_article a,zc_store s
+		WHERE
+			s.id = a.store_id
+		ORDER BY
+		    a.sort DESC
+		limit #{page},#{pageSize}
+	</select>
+
+	<!-- 执行获取账号和数据源匹配登录 -->
+	<select id="findShareArticleListByType" resultType="com.zhanchengwlkj.zcWebBoot.modal.ShareArticle">
+		SELECT
+			a.id,a.store_id,a.title,a.type_str,a.image,a.create_time,a.sort,s.store_name
+		FROM
+			zc_share_article a,zc_store s
+		WHERE
+			a.type_str = #{type_str}
+		AND
+			s.id = a.store_id
+		ORDER BY
+		    a.sort DESC
+		limit #{page},#{pageSize}
+	</select>
+
+	<select id="findShareArticleById" resultType="com.zhanchengwlkj.zcWebBoot.modal.ShareArticle">
+		SELECT
+			a.*,s.store_name
+		FROM
+			zc_share_article a,zc_store s
+		WHERE
+			a.id = #{id}
+		AND
+			s.id = a.store_id
+	</select>
+
+	<!-- 执行获取账号和数据源匹配登录 -->
+	<select id="findShareArticleListByHot" resultType="com.zhanchengwlkj.zcWebBoot.modal.News">
+		SELECT
+			*
+		FROM
+			zc_news
+		WHERE
+			menu_id = 35
+		or
+			menu_id in (select id from zc_news_menu where pid=35)
+		ORDER BY
+		    sort DESC
+		limit #{page},#{pageSize}
+	</select>
+
+
+</mapper>

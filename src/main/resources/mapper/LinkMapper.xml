@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhanchengwlkj.zcWebBoot.dao.LinkDao">
+
+    <!-- 目的：为dao接口方法提供sql语句配置 -->
+
+    <!-- 执行获取账号和数据源匹配登录 -->
+    <select id="findLinkListByType" resultType="com.zhanchengwlkj.zcWebBoot.modal.Link">
+		SELECT
+			a.*
+		FROM
+			zc_link a
+		WHERE
+			a.type =#{type}
+		and
+			a.city LIKE #{city}
+		ORDER BY
+		    a.sort DESC
+	</select>
+
+
+
+
+
+
+
+</mapper>

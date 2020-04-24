@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhanchengwlkj.zcWebBoot.dao.FormDao">
+
+    <!-- 目的：为dao接口方法提供sql语句配置 -->
+
+    <!-- 执行获取账号和数据源匹配登录 -->
+	<insert id="addForm" parameterType="com.zhanchengwlkj.zcWebBoot.modal.Form">
+		insert into zc_form
+		(
+			`city`,
+			`type_int`,
+			`field1`,
+			`name`,
+			`phone`,
+			`content`,
+			`create_time`
+		)
+		values
+		(
+			#{city},
+			#{type_int},
+			#{field1},
+			#{name},
+			#{phone},
+			#{content},
+			#{create_time}
+		)
+	</insert>
+
+
+
+
+
+
+
+</mapper>

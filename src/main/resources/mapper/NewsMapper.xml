@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhanchengwlkj.zcWebBoot.dao.NewsDao">
+
+    <!-- 目的：为dao接口方法提供sql语句配置 -->
+
+    <!-- 执行获取账号和数据源匹配登录 -->
+    <select id="findNewsListByAll" resultType="com.zhanchengwlkj.zcWebBoot.modal.News">
+		SELECT
+			id,title,type_str,image,create_time,sort
+		FROM
+			zc_news
+		WHERE
+			type_str = #{type}
+		ORDER BY
+		    sort DESC
+		limit #{page},#{pageSize}
+	</select>
+
+	<!-- 执行获取账号和数据源匹配登录 -->
+	<select id="findNewsListByRight" resultType="com.zhanchengwlkj.zcWebBoot.modal.News">
+		SELECT
+			n.id,n.title,n.menu_id,n.image,n.create_time,n.sort,m.menu_name
+		FROM
+			zc_news n,zc_news_menu m
+		where
+			m.id=n.menu_id
+		ORDER BY
+		    n.sort DESC
+		limit #{page},#{pageSize}
+	</select>
+
+	<select id="findNewsById" resultType="com.zhanchengwlkj.zcWebBoot.modal.News">
+		SELECT
+			*
+		FROM
+			zc_news
+		WHERE
+			id = #{id}
+	</select>
+
+
+
+
+
+
+
+
+</mapper>

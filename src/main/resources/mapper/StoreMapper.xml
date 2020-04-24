@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhanchengwlkj.zcWebBoot.dao.StoreDao">
+
+    <!-- 目的：为dao接口方法提供sql语句配置 -->
+
+    <!-- 执行获取账号和数据源匹配登录 -->
+    <select id="findStoreListByRecommend" resultType="com.zhanchengwlkj.zcWebBoot.modal.Store">
+		SELECT
+			*
+		FROM
+			zc_store
+		WHERE
+			province = #{province}
+		AND
+			city = #{city}
+		AND
+			type_int = #{type}
+		ORDER BY
+		    recommend DESC
+	</select>
+
+	<!-- 获取学校列表-全部类型 -->
+	<select id="findStoreListByType" resultType="com.zhanchengwlkj.zcWebBoot.modal.Store">
+		SELECT
+			*
+		FROM
+			zc_store
+		WHERE
+			city like  CONCAT('%',#{city},'%')
+		AND
+			county like  CONCAT('%',#{area},'%')
+		AND
+			field1 like  CONCAT('%',#{jigou},'%')
+		AND
+			type_int =  #{type}
+		ORDER BY
+		    sort DESC
+		limit #{page},#{pageSize}
+	</select>
+
+	<!-- 获取学校列表-全部类型 -->
+	<select id="findStoreListByTypeKeCheng" resultType="com.zhanchengwlkj.zcWebBoot.modal.Store">
+		SELECT
+			*
+		FROM
+			zc_store
+		WHERE
+			province like  CONCAT('%',#{province},'%')
+		AND
+			city like  CONCAT('%',#{city},'%')
+		AND
+			county like  CONCAT('%',#{area},'%')
+		AND
+			field1 like  CONCAT('%',#{jigou},'%')
+		AND
+			type_int =  #{type}
+		AND
+	  		id in (select store_id from zc_product where menu_id in (select id from zc_menu where pid = #{kecheng_id}))
+		ORDER BY
+		    sort DESC
+		limit #{page},#{pageSize}
+	</select>
+
+	<!-- 获取学校列表-某个类型 -->
+	<select id="findStoreListByType2" resultType="com.zhanchengwlkj.zcWebBoot.modal.Store">
+		SELECT
+			*
+		FROM
+			zc_store
+		WHERE
+			province like  CONCAT('%',#{province},'%')
+		AND
+			city like  CONCAT('%',#{city},'%')
+		AND
+			county like  CONCAT('%',#{area},'%')
+		AND
+			field1 like  CONCAT('%',#{jigou},'%')
+		AND
+			type_int =  #{type}
+		AND
+			id in (select store_id from zc_store_type where type_id = #{type_id} or type_id in (select id from zc_type where pid=#{type_id}))
+		ORDER BY
+		    sort DESC
+		limit #{page},#{pageSize}
+	</select>
+
+	<!-- 获取学校列表-某个类型 -->
+	<select id="findStoreListByTypeKeCheng2" resultType="com.zhanchengwlkj.zcWebBoot.modal.Store">
+		SELECT
+			*
+		FROM
+			zc_store
+		WHERE
+			province like  CONCAT('%',#{province},'%')
+		AND
+			city like  CONCAT('%',#{city},'%')
+		AND
+			county like  CONCAT('%',#{area},'%')
+		AND
+			field1 like  CONCAT('%',#{jigou},'%')
+		AND
+			type_int =  #{type}
+		AND
+	  		id in (select store_id from zc_product where menu_id in (select id from zc_menu where pid = #{kecheng_id}))
+	  	AND
+	  		id in (select store_id from zc_store_type where type_id = #{type_id} or type_id in (select id from zc_type where pid=#{type_id}))
+		ORDER BY
+		    sort DESC
+		limit #{page},#{pageSize}
+	</select>
+
+
+	<!-- 获取品牌加盟列表-某个类型 -->
+	<select id="findCompanyListByType2" resultType="com.zhanchengwlkj.zcWebBoot.modal.Store">
+		SELECT
+			*
+		FROM
+			zc_store
+		WHERE
+			province like  CONCAT('%',#{province},'%')
+		AND
+			city like  CONCAT('%',#{city},'%')
+		AND
+			county like  CONCAT('%',#{area},'%')
+		AND
+			type_int =  #{typeCompany}
+		AND
+			field6 &gt;  #{money_start}
+		AND
+			field6 &lt; #{money_end}
+		ORDER BY
+		    sort DESC
+		limit #{page},#{pageSize}
+	</select>
+
+	<!-- 获取品牌加盟列表-某个类型 -->
+	<select id="findCompanyListByTypeKeCheng2" resultType="com.zhanchengwlkj.zcWebBoot.modal.Store">
+		SELECT
+			*
+		FROM
+			zc_store
+		WHERE
+			province like  CONCAT('%',#{province},'%')
+		AND
+			city like  CONCAT('%',#{city},'%')
+		AND
+			county like  CONCAT('%',#{area},'%')
+		AND
+			type_int =  #{typeCompany}
+	  	AND
+	  		id in (select store_id from zc_store_company_type where type_id = #{type_id} or type_id in (select id from zc_type_company where pid=#{type_id}))
+	  	AND
+			field6 &gt;  #{money_start}
+		AND
+			field6 &lt; #{money_end}
+		ORDER BY
+		    sort DESC
+		limit #{page},#{pageSize}
+	</select>
+
+	<!-- 执行获取账号和数据源匹配登录 -->
+	<select id="findStoreListByTypeId" resultType="com.zhanchengwlkj.zcWebBoot.modal.Store">
+		SELECT
+			*
+		FROM
+			zc_store
+		WHERE
+			province = #{province}
+		AND
+			city = #{city}
+		AND
+			id in (select store_id from zc_store_type where type_id = #{type_id})
+		ORDER BY
+		    sort DESC
+		limit #{page},#{pageSize}
+	</select>
+
+	<!-- 执行获取账号和数据源匹配登录 -->
+	<select id="findStoreListByFlagNew" resultType="com.zhanchengwlkj.zcWebBoot.modal.Store">
+		SELECT
+			*
+		FROM
+			zc_store
+		WHERE
+			type_int = #{type}
+		ORDER BY
+		    id DESC
+		limit #{page},#{pageSize}
+	</select>
+
+	<!-- 执行获取账号和数据源匹配登录 -->
+	<select id="findStoreNewsListByAll" resultType="com.zhanchengwlkj.zcWebBoot.modal.News">
+		SELECT
+			*
+		FROM
+			zc_news
+		WHERE
+			id in (select news_id from zc_news_store where store_id = #{store_id})
+		ORDER BY
+		    id DESC
+		limit #{page},#{pageSize}
+	</select>
+
+	<!-- 执行获取账号和数据源匹配登录 -->
+	<select id="findStoreNewsById" resultType="com.zhanchengwlkj.zcWebBoot.modal.StoreNews">
+		SELECT
+			*
+		FROM
+			zc_store_news
+		WHERE
+			id = #{id}
+	</select>
+
+	<!-- 执行获取账号和数据源匹配登录 -->
+	<select id="findStoreById" resultType="com.zhanchengwlkj.zcWebBoot.modal.Store">
+		SELECT
+			*
+		FROM
+			zc_store
+		WHERE
+			id = #{id}
+	</select>
+
+
+
+</mapper>

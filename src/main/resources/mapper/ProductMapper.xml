@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhanchengwlkj.zcWebBoot.dao.ProductDao">
+
+    <!-- 目的：为dao接口方法提供sql语句配置 -->
+
+    <!-- 执行获取账号和数据源匹配登录 -->
+    <select id="findProductListByCityAll" resultType="com.zhanchengwlkj.zcWebBoot.modal.Product">
+		SELECT
+			p.id,p.name,p.store_id,p.menu_id,p.image,p.keywords,p.field1,p.field2,p.field3,p.sort,s.store_name
+		FROM
+			zc_product p,zc_store s
+		WHERE
+			p.store_id in (select store_id from zc_store where city = #{city} and county like CONCAT('%',#{county},'%'))
+		AND
+			p.field1 &gt; #{day1}
+		AND
+			p.field1  &lt; #{day2}
+		limit #{page},#{pageSize}
+	</select>
+
+	<!-- 执行获取账号和数据源匹配登录 -->
+	<select id="findProductListByCityAllMoneyDesc" resultType="com.zhanchengwlkj.zcWebBoot.modal.Product">
+		SELECT
+			p.id,p.name,p.store_id,p.menu_id,p.image,p.keywords,p.field1,p.field2,p.field3,p.sort,s.store_name
+		FROM
+			zc_product p,zc_store s
+		WHERE
+			p.store_id in (select store_id from zc_store where city = #{city} and county like CONCAT('%',#{county},'%'))
+		AND
+			p.field1 &gt; #{day1}
+		AND
+			p.field1  &lt; #{day2}
+	  	ORDER BY
+	  		p.field2 DESC
+		limit #{page},#{pageSize}
+	</select>
+
+	<!-- 执行获取账号和数据源匹配登录 -->
+	<select id="findProductListByCityAllMoney" resultType="com.zhanchengwlkj.zcWebBoot.modal.Product">
+		SELECT
+			p.id,p.name,p.store_id,p.menu_id,p.image,p.keywords,p.field1,p.field2,p.field3,p.sort,s.store_name
+		FROM
+			zc_product p,zc_store s
+		WHERE
+			p.store_id in (select store_id from zc_store where city = #{city} and county like CONCAT('%',#{county},'%'))
+		AND
+			p.field1 &gt; #{day1}
+		AND
+			p.field1  &lt; #{day2}
+	  	ORDER BY
+	  		p.field2
+		limit #{page},#{pageSize}
+	</select>
+
+	<!-- 执行获取账号和数据源匹配登录 -->
+	<select id="findProductListByCityMenuParent" resultType="com.zhanchengwlkj.zcWebBoot.modal.Product">
+		SELECT
+			p.id,p.name,p.store_id,p.menu_id,p.image,p.keywords,p.field1,p.field2,p.field3,p.sort,s.store_name
+		FROM
+			zc_product p,zc_store s
+		WHERE
+			p.store_id in (select store_id from zc_store where city = #{city} and county like CONCAT('%',#{county},'%'))
+		AND
+			p.field1 &gt; #{day1}
+		AND
+			p.field1  &lt; #{day2}
+		AND
+			p.menu_id in (select id from zc_menu where pid = #{type_parent_id})
+		limit #{page},#{pageSize}
+	</select>
+
+	<!-- 执行获取账号和数据源匹配登录 -->
+	<select id="findProductListByCityAllMenuParentMoneyDesc" resultType="com.zhanchengwlkj.zcWebBoot.modal.Product">
+		SELECT
+			p.id,p.name,p.store_id,p.menu_id,p.image,p.keywords,p.field1,p.field2,p.field3,p.sort,s.store_name
+		FROM
+			zc_product p,zc_store s
+		WHERE
+			p.store_id in (select store_id from zc_store where city = #{city} and county like CONCAT('%',#{county},'%'))
+		AND
+			p.field1 &gt; #{day1}
+		AND
+			p.field1  &lt; #{day2}
+		AND
+			p.menu_id in (select id from zc_menu where pid = #{type_parent_id})
+		ORDER BY
+	  		p.field2 DESC
+		limit #{page},#{pageSize}
+	</select>
+
+	<!-- 执行获取账号和数据源匹配登录 -->
+	<select id="findProductListByCityAllMenuParentMoney" resultType="com.zhanchengwlkj.zcWebBoot.modal.Product">
+		SELECT
+			p.id,p.name,p.store_id,p.menu_id,p.image,p.keywords,p.field1,p.field2,p.field3,p.sort,s.store_name
+		FROM
+			zc_product p,zc_store s
+		WHERE
+			p.store_id in (select store_id from zc_store where city = #{city} and county like CONCAT('%',#{county},'%'))
+		AND
+			p.field1 &gt; #{day1}
+		AND
+			p.field1  &lt; #{day2}
+		AND
+			p.menu_id in (select id from zc_menu where pid = #{type_parent_id})
+		ORDER BY
+	  		p.field2
+		limit #{page},#{pageSize}
+	</select>
+
+	<!-- 执行获取账号和数据源匹配登录 -->
+	<select id="findProductListByCityMenu" resultType="com.zhanchengwlkj.zcWebBoot.modal.Product">
+		SELECT
+			p.id,p.name,p.store_id,p.menu_id,p.image,p.keywords,p.field1,p.field2,p.field3,p.sort,s.store_name
+		FROM
+			zc_product p,zc_store s
+		WHERE
+			p.store_id in (select store_id from zc_store where city = #{city} and county like CONCAT('%',#{county},'%'))
+		AND
+			p.field1 &gt; #{day1}
+		AND
+			p.field1  &lt; #{day2}
+		AND
+			p.menu_id = #{type_id}
+		AND
+			s.id = p.store_id
+		limit #{page},#{pageSize}
+	</select>
+
+	<!-- 执行获取账号和数据源匹配登录 -->
+	<select id="findProductListByCityAllMenuMoneyDesc" resultType="com.zhanchengwlkj.zcWebBoot.modal.Product">
+		SELECT
+			p.id,p.name,p.store_id,p.menu_id,p.image,p.keywords,p.field1,p.field2,p.field3,p.sort,s.store_name
+		FROM
+			zc_product p,zc_store s
+		WHERE
+			p.store_id in (select store_id from zc_store where city = #{city} and county like CONCAT('%',#{county},'%'))
+		AND
+			p.field1 &gt; #{day1}
+		AND
+			p.field1  &lt; #{day2}
+		AND
+			p.menu_id = #{type_id}
+		AND
+			s.id = p.store_id
+		ORDER BY
+	  		p.field2 DESC
+		limit #{page},#{pageSize}
+	</select>
+
+	<!-- 执行获取账号和数据源匹配登录 -->
+	<select id="findProductListByCityAllMenuMoney" resultType="com.zhanchengwlkj.zcWebBoot.modal.Product">
+		SELECT
+			p.id,p.name,p.store_id,p.menu_id,p.image,p.keywords,p.field1,p.field2,p.field3,p.sort,s.store_name
+		FROM
+			zc_product p,zc_store s
+		WHERE
+			p.store_id in (select store_id from zc_store where city = #{city} and county like CONCAT('%',#{county},'%'))
+		AND
+			p.field1 &gt; #{day1}
+		AND
+			p.field1  &lt; #{day2}
+		AND
+			p.menu_id = #{type_id}
+		AND
+			s.id = p.store_id
+		ORDER BY
+	  		p.field2
+		limit #{page},#{pageSize}
+	</select>
+
+	<!-- 执行获取账号和数据源匹配登录 -->
+	<select id="findProductById" resultType="com.zhanchengwlkj.zcWebBoot.modal.Product">
+		SELECT
+			*
+		FROM
+			zc_product
+		WHERE
+			id = #{id}
+	</select>
+
+	<!-- 执行获取账号和数据源匹配登录 -->
+	<select id="findProductListByStoreId" resultType="com.zhanchengwlkj.zcWebBoot.modal.Product">
+		SELECT
+			p.id,p.name,p.store_id,p.menu_id,p.image,p.keywords,p.field1,p.field2,p.field3,p.sort,m.menu_name
+		FROM
+			zc_product p,zc_menu m
+		WHERE
+			p.store_id = #{store_id}
+		AND
+			m.id = p.menu_id
+		limit #{page},#{pageSize}
+	</select>
+
+	<!-- 执行获取账号和数据源匹配登录 -->
+	<!--根据pid查询菜单列表 -->
+	<select id="findProductTypeList" resultType="com.zhanchengwlkj.zcWebBoot.modal.Type" >
+		SELECT
+			*
+		FROM
+			zc_type
+        WHERE
+			pid = #{0}
+		AND
+			status = 1
+	 	ORDER BY sort DESC
+	</select>
+</mapper>

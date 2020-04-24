@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhanchengwlkj.zcWebBoot.dao.TypeDao">
+
+    <!-- 目的：为dao接口方法提供sql语句配置 -->
+
+    <!-- 执行获取账号和数据源匹配登录 -->
+    <select id="findTypeListByFlag" resultType="com.zhanchengwlkj.zcWebBoot.modal.Type">
+		SELECT
+			*
+		FROM
+			zc_type
+		WHERE
+			flag = #{flag}
+		ORDER BY
+		    sort DESC
+	</select>
+
+	<!-- 执行获取账号和数据源匹配登录 -->
+	<select id="findSchoolTypeListByPid" resultType="com.zhanchengwlkj.zcWebBoot.modal.Type">
+		SELECT
+			*
+		FROM
+			zc_type
+		WHERE
+			pid = #{0}
+		ORDER BY
+		    sort DESC
+	</select>
+
+
+
+
+
+
+
+</mapper>
